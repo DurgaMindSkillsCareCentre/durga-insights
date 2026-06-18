@@ -665,13 +665,52 @@
 
       
 
-<iframe src="https://widgets.sociablekit.com/linkedin-profile-posts/iframe/25690534" frameborder="0" width="150%" height="600px"></iframe>
+<iframe src="https://widgets.sociablekit.com/linkedin-profile-posts/iframe/25690534" frameborder="0" width="100%" height="1900px"></iframe>
 
       
 </div>
 
   </div>
 </div><!-- /feed -->
+
+suresh
+
+<!-- Container forces horizontal swiping on mobile and shields your layout -->
+<div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; clear: both;">
+
+  <!-- The Iframe uses srcdoc to create a sandboxed mini-page -->
+  <iframe 
+    srcdoc="
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          html, body { margin: 0; padding: 0; background: transparent; overflow-x: hidden; }
+          /* Forces SociableKIT to lay out wide like a desktop screen */
+          .sk-ww-linkedin-page-post, .sk-ww-linkedin-page-post iframe { 
+            width: 550px !important; 
+            min-width: 550px !important; 
+            margin: 0 auto; 
+          }
+        </style>
+      </head>
+      <body>
+        <!-- PUT YOUR EXACT SOCIABLEKIT WIDGET CODE HERE -->
+    <div class="sk-ww-linkedin-profile-post" data-embed-id="25690534"></div><script src="https://widgets.sociablekit.com/linkedin-profile-posts/widget.js" defer></script>
+        <div class='sk-ww-linkedin-page-post' data-embed-id='YOUR_EMBED_ID'></div>
+        <script src='https://sociablekit.com' defer></script>
+      </body>
+      </html>
+    "
+    style="width: 550px; min-width: 550px; height: 500px; min-height: 300px; border: none; display: block;"
+    scrolling="yes">
+  </iframe>
+
+</div>
+
+
+  suresh
+  
 
 <hr class="rainbow-divider">
 
