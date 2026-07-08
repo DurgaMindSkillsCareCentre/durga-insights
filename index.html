@@ -682,26 +682,26 @@ border-radius:16px;
 ">
 </iframe>
 
+
+</div>
+
+
   <div class="sk-ww-linkedin-profile-post" data-embed-id="25690534"></div>
 <script src="https://widgets.sociablekit.com/linkedin-profile-posts/widget.js" defer></script>
 
 <style>
-.sk-ww-linkedin-profile-post {
-  --card-radius: 12px;
-}
-.sk-ww-linkedin-profile-post .sk-post,
 .sk-ww-linkedin-profile-post [class*="post-item"],
 .sk-ww-linkedin-profile-post [class*="post-card"] {
   border: 1px solid #d4af37 !important;
-  border-radius: var(--card-radius) !important;
+  border-radius: 12px !important;
   box-shadow: 0 2px 8px rgba(11,26,58,0.12) !important;
   padding: 14px !important;
   margin-bottom: 14px !important;
-  background: #ffffff !important;
-  transition: box-shadow 0.2s ease;
+  background: #fff !important;
 }
-.sk-ww-linkedin-profile-post [class*="post-item"]:hover {
-  box-shadow: 0 4px 14px rgba(11,26,58,0.2) !important;
+.sk-ww-linkedin-profile-post [class*="post-image"] img {
+  border-radius: 8px !important;
+  margin-bottom: 8px !important;
 }
 .sk-ww-linkedin-profile-post [class*="post-text"],
 .sk-ww-linkedin-profile-post [class*="post-content"] {
@@ -711,34 +711,45 @@ border-radius:16px;
   overflow: hidden !important;
   font-size: 14px !important;
   line-height: 1.5 !important;
-  cursor: pointer !important;
-  transition: -webkit-line-clamp 0.2s ease;
 }
 .sk-ww-linkedin-profile-post [class*="post-text"].sk-expanded,
 .sk-ww-linkedin-profile-post [class*="post-content"].sk-expanded {
   -webkit-line-clamp: unset !important;
 }
+.sk-read-more-btn {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b1a3a;
+  background: #d4af37;
+  padding: 4px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+}
 </style>
 
 <script>
 (function(){
-  function attachToggle(){
+  function attach(){
     document.querySelectorAll('.sk-ww-linkedin-profile-post [class*="post-text"], .sk-ww-linkedin-profile-post [class*="post-content"]').forEach(function(el){
-      if(!el.dataset.tickBound){
-        el.dataset.tickBound = "1";
-        el.addEventListener('click', function(){
-          el.classList.toggle('sk-expanded');
-        });
-      }
+      if(el.dataset.tickBound) return;
+      el.dataset.tickBound = "1";
+      var btn = document.createElement('span');
+      btn.className = 'sk-read-more-btn';
+      btn.textContent = 'Read more';
+      el.insertAdjacentElement('afterend', btn);
+      btn.addEventListener('click', function(){
+        el.classList.toggle('sk-expanded');
+        btn.textContent = el.classList.contains('sk-expanded') ? 'Show less' : 'Read more';
+      });
     });
   }
-  var obs = new MutationObserver(attachToggle);
-  obs.observe(document.body, {childList:true, subtree:true});
-  setTimeout(attachToggle, 1500);
+  new MutationObserver(attach).observe(document.body, {childList:true, subtree:true});
+  setTimeout(attach, 1500);
 })();
 </script>
-
-</div>
 
   
 <hr class="rainbow-divider">
