@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+7<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -686,71 +686,95 @@ border-radius:16px;
 </div>
 
 
-  <div class="sk-ww-linkedin-profile-post" data-embed-id="25690534"></div>
+<div class="sk-ww-linkedin-profile-post" data-embed-id="25690534"></div>
 <script src="https://widgets.sociablekit.com/linkedin-profile-posts/widget.js" defer></script>
 
 <style>
-.sk-ww-linkedin-profile-post [class*="post-item"],
-.sk-ww-linkedin-profile-post [class*="post-card"] {
-  border: 1px solid #d4af37 !important;
-  border-radius: 12px !important;
-  box-shadow: 0 2px 8px rgba(11,26,58,0.12) !important;
-  padding: 14px !important;
-  margin-bottom: 14px !important;
-  background: #fff !important;
+.sk-ww-linkedin-profile-post {
+  max-width: 340px !important;
+  margin: 0 auto;
 }
-.sk-ww-linkedin-profile-post [class*="post-image"] img {
-  border-radius: 8px !important;
-  margin-bottom: 8px !important;
+
+/* Target each individual post card wrapper - broad selector to catch SociableKit's structure */
+.sk-ww-linkedin-profile-post > div > div,
+.sk-ww-linkedin-profile-post iframe {
+  border-radius: 14px !important;
 }
-.sk-ww-linkedin-profile-post [class*="post-text"],
-.sk-ww-linkedin-profile-post [class*="post-content"] {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  font-size: 14px !important;
-  line-height: 1.5 !important;
+
+.sk-post-wrap {
+  position: relative;
+  max-height: 260px;
+  overflow: hidden;
+  border: 1px solid #d4af37;
+  border-radius: 14px;
+  background: #0b1a3a;
+  margin-bottom: 16px;
+  transition: max-height 0.3s ease;
 }
-.sk-ww-linkedin-profile-post [class*="post-text"].sk-expanded,
-.sk-ww-linkedin-profile-post [class*="post-content"].sk-expanded {
-  -webkit-line-clamp: unset !important;
+.sk-post-wrap.sk-expanded {
+  max-height: 2000px;
+}
+.sk-post-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: 34px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(11,26,58,0), #0b1a3a);
+  pointer-events: none;
+}
+.sk-post-wrap.sk-expanded::after {
+  display: none;
 }
 .sk-read-more-btn {
-  display: inline-block;
-  margin-top: 6px;
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  text-align: center;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: #0b1a3a;
   background: #d4af37;
-  padding: 4px 12px;
-  border-radius: 20px;
+  padding: 7px 0;
   cursor: pointer;
   border: none;
+  letter-spacing: 0.3px;
 }
 </style>
 
 <script>
 (function(){
-  function attach(){
-    document.querySelectorAll('.sk-ww-linkedin-profile-post [class*="post-text"], .sk-ww-linkedin-profile-post [class*="post-content"]').forEach(function(el){
-      if(el.dataset.tickBound) return;
-      el.dataset.tickBound = "1";
-      var btn = document.createElement('span');
+  function wrapCards(){
+    var container = document.querySelector('.sk-ww-linkedin-profile-post');
+    if(!container) return;
+    // Find direct post-level children (adjust depth if needed once you inspect real DOM)
+    var candidates = container.querySelectorAll(':scope > div > div');
+    candidates.forEach(function(card){
+      if(card.dataset.wrapped) return;
+      card.dataset.wrapped = "1";
+      var wrap = document.createElement('div');
+      wrap.className = 'sk-post-wrap';
+      card.parentNode.insertBefore(wrap, card);
+      wrap.appendChild(card);
+      var btn = document.createElement('div');
       btn.className = 'sk-read-more-btn';
       btn.textContent = 'Read more';
-      el.insertAdjacentElement('afterend', btn);
+      wrap.appendChild(btn);
       btn.addEventListener('click', function(){
-        el.classList.toggle('sk-expanded');
-        btn.textContent = el.classList.contains('sk-expanded') ? 'Show less' : 'Read more';
+        wrap.classList.toggle('sk-expanded');
+        btn.textContent = wrap.classList.contains('sk-expanded') ? 'Show less' : 'Read more';
       });
     });
   }
-  new MutationObserver(attach).observe(document.body, {childList:true, subtree:true});
-  setTimeout(attach, 1500);
+  new MutationObserver(wrapCards).observe(document.body, {childList:true, subtree:true});
+  setTimeout(wrapCards, 1500);
+  setTimeout(wrapCards, 3000);
 })();
 </script>
 
+  
   
 <hr class="rainbow-divider">
 
